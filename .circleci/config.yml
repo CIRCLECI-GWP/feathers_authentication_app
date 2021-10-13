@@ -1,0 +1,17 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+version: 2.1
+orbs:
+  node: circleci/node@4.7.0
+jobs:
+  build-and-test:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          cache-path: ~/project/node_modules
+          override-ci-command: npm install
+      - run: npm test
+workflows:
+  test-my-app:
+    jobs:
+      - build-and-test
